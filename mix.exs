@@ -9,6 +9,7 @@ defmodule DockerCompose.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
+      description: description(),
       # Docs
       name: "DockerCompose Elixir",
       source_url: "https://github.com/altworx/docker-compose-elixir",
@@ -28,6 +29,10 @@ defmodule DockerCompose.MixProject do
 
   defp deps do
     [{:ex_doc, "~> 0.25.1", only: :dev, runtime: false}]
+  end
+
+  defp description do
+    "Work with docker-compose definitions from Elixir."
   end
 
   defp package do
