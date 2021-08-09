@@ -37,7 +37,6 @@ defmodule DockerCompose.MixProject do
 
   defp package do
     [
-      organization: "Altworx s.r.o.",
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/altworx/docker-compose-elixir"}
     ]
