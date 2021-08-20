@@ -31,6 +31,7 @@ defmodule DockerCompose do
 
   ## Options
     - `compose_path: path` - path to the compose if not in the standard location
+    - `project_name: name` - compose project name
     - `force_recreate: true` - if true all specified services are forcefully recreated
     - `remove_orphans: true` - if true orphaned containers are removed
     - `service: name` - name of the service that should be started, can be specified multiple times
@@ -69,6 +70,7 @@ defmodule DockerCompose do
 
   ## Options
     - `compose_path: path` - path to the compose if not in the standard location
+    - `project_name: name` - compose project name
     - `remove_orphans: true` - if true orphaned containers are removed
 
   ## Result
@@ -105,6 +107,7 @@ defmodule DockerCompose do
 
   ## Options
     - `compose_path: path` - path to the compose if not in the standard location
+    - `project_name: name` - compose project name
     - `service: name` - name of the service to be restarted, can be specified multiple times to
       restart multiple services at once. If not specified at all then all services are restarted.
 
@@ -136,6 +139,7 @@ defmodule DockerCompose do
 
   ## Options
     - `compose_path: path` - path to the compose if not in the standard location
+    - `project_name: name` - compose project name
     - `service: name` - name of the service to be stopped, can be specified multiple times to stop
       multiple services at once. If not specified at all then all services are stopped.
 
@@ -170,6 +174,7 @@ defmodule DockerCompose do
 
   ## Options
     - `compose_path: path` - path to the compose if not in the standard location
+    - `project_name: name` - compose project name
     - `service: name` - name of the service to be started, can be specified multiple times to start
       multiple services at once. If not specified at all then all services are started.
 
@@ -202,6 +207,10 @@ defmodule DockerCompose do
 
   defp compose_opts([{:compose_path, path} | rest]) do
     ["-f", Path.basename(path) | compose_opts(rest)]
+  end
+
+  defp compose_opts([{:project_name, name} | rest]) do
+    ["-p", name | compose_opts(rest)]
   end
 
   defp compose_opts([_ | rest]), do: compose_opts(rest)
