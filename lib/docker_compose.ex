@@ -151,7 +151,7 @@ defmodule DockerCompose do
   end
 
   defp execute(args, opts) do
-    System.cmd("docker-compose", args, [{:stderr_to_stdout, true} | cmd_opts(opts)])
+    System.cmd("docker-compose", ["--no-ansi" | args], [{:stderr_to_stdout, true} | cmd_opts(opts)])
   end
 
   defp compose_opts([{:compose_path, path} | rest]) do
