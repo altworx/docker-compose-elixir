@@ -194,6 +194,10 @@ defmodule DockerCompose do
     [{:cd, Path.dirname(path)} | cmd_opts(rest)]
   end
 
+  defp cmd_opts([{:into, _collectable} = into | rest]) do
+    [into | cmd_opts(rest)]
+  end
+
   defp cmd_opts([_ | rest]), do: cmd_opts(rest)
   defp cmd_opts([]), do: []
 
