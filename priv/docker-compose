@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Wrapper options have to be set before any other opts.
+#
+# --always-yes - answers "yes" to all interactive questions
+
+set -eu
+
+always_yes=false
+
+while :; do
+  case "${1-}" in
+    --always-yes)
+      always_yes=true
+      ;;
+    *)
+      break
+      ;;
+  esac
+
+  shift
+done
+
+if [ "$always_yes" = true ]; then
+  # Ignore "Broken pipe" message from the `yes` command.
+  yes 2>/dev/null | docker-compose "$@"
+else
+  docker-compose "$@"
+fi
