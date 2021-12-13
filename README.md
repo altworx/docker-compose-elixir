@@ -10,7 +10,7 @@ of the capabilities directly from Elixir.
 It's available in Hex, just add the snippet below to your dependencies.
 
 ```elixir
-{:docker_compose, "~> 0.2"}
+{:docker_compose, "~> 0.3"}
 ```
 
 Documentation can be found at [HexDocs](https://hexdocs.pm/docker_compose).
