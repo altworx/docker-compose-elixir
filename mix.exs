@@ -4,7 +4,7 @@ defmodule DockerCompose.MixProject do
   def project do
     [
       app: :docker_compose,
-      version: "0.3.0",
+      version: "0.3.1",
       elixir: "~> 1.10",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
