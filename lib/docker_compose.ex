@@ -39,6 +39,14 @@ defmodule DockerCompose do
     |> result()
   end
 
+  def version(opts) do
+    args = [compose_opts(opts), "version"] |> List.flatten()
+
+    args
+    |> execute(opts)
+    |> result()
+  end
+
   @doc """
   docker-compose down
 
@@ -156,7 +164,7 @@ defmodule DockerCompose do
   end
 
   defp execute(args, opts) do
-    System.cmd(get_executable(), wrapper_opts(opts) ++ ["--no-ansi" | args], [
+    System.cmd(get_executable(), wrapper_opts(opts) ++ ["--ansi", " never"] ++ args, [
       {:stderr_to_stdout, true} | cmd_opts(opts)
     ])
   end
