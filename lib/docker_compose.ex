@@ -156,7 +156,7 @@ defmodule DockerCompose do
   end
 
   defp execute(args, opts) do
-    System.cmd(get_executable(), wrapper_opts(opts) ++ ["--no-ansi" | args], [
+    System.cmd(get_executable(), wrapper_opts(opts) ++ ["--ansi", "never"] ++ args, [
       {:stderr_to_stdout, true} | cmd_opts(opts)
     ])
   end
