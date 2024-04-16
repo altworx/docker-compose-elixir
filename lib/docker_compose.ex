@@ -21,6 +21,7 @@ defmodule DockerCompose do
     - `remove_orphans: true` - if true orphaned containers are removed
     - `service: name` - name of the service that should be started, can be specified multiple times
       to start multiple services. If it's not specified at all then all services are started.
+    - `compatibility: true` - if true, runs compose in backward compatibility mode
   """
   @spec up(Keyword.t()) :: {:ok, output} | {:error, exit_code, output}
   def up(opts) do
@@ -45,6 +46,7 @@ defmodule DockerCompose do
     - `compose_path: path` - path to the compose if not in the standard location
     - `project_name: name` - compose project name
     - `remove_orphans: true` - if true orphaned containers are removed
+    - `compatibility: true` - if true, runs compose in backward compatibility mode
 
   ## Result
 
@@ -83,6 +85,7 @@ defmodule DockerCompose do
     - `project_name: name` - compose project name
     - `service: name` - name of the service to be restarted, can be specified multiple times to
       restart multiple services at once. If not specified at all then all services are restarted.
+    - `compatibility: true` - if true, runs compose in backward compatibility mode
   """
   @spec restart(Keyword.t()) :: {:ok, output} | {:error, exit_code, output}
   def restart(opts) do
@@ -107,6 +110,7 @@ defmodule DockerCompose do
     - `project_name: name` - compose project name
     - `service: name` - name of the service to be stopped, can be specified multiple times to stop
       multiple services at once. If not specified at all then all services are stopped.
+    - `compatibility: true` - if true, runs compose in backward compatibility mode
   """
   @spec stop(Keyword.t()) :: {:ok, output} | {:error, exit_code, output}
   def stop(opts) do
@@ -162,6 +166,10 @@ defmodule DockerCompose do
 
   defp compose_opts([{:project_name, name} | rest]) do
     ["-p", name | compose_opts(rest)]
+  end
+
+  defp compose_opts([{:compatibility, true} | rest]) do
+    ["--compatibility" | compose_opts(rest)]
   end
 
   defp compose_opts([_ | rest]), do: compose_opts(rest)
