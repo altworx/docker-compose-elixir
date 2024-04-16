@@ -15,7 +15,6 @@ defmodule DockerCompose do
   which might take a while if the images need to be pulled.
 
   ## Options
-    - `always_yes: true` - answer "yes" to all interactive questions
     - `compose_path: path` - path to the compose if not in the standard location
     - `project_name: name` - compose project name
     - `force_recreate: true` - if true all specified services are forcefully recreated
@@ -43,7 +42,6 @@ defmodule DockerCompose do
   docker-compose down
 
   ## Options
-    - `always_yes: true` - answer "yes" to all interactive questions
     - `compose_path: path` - path to the compose if not in the standard location
     - `project_name: name` - compose project name
     - `remove_orphans: true` - if true orphaned containers are removed
@@ -81,7 +79,6 @@ defmodule DockerCompose do
   docker-compose restart
 
   ## Options
-    - `always_yes: true` - answer "yes" to all interactive questions
     - `compose_path: path` - path to the compose if not in the standard location
     - `project_name: name` - compose project name
     - `service: name` - name of the service to be restarted, can be specified multiple times to
@@ -106,7 +103,6 @@ defmodule DockerCompose do
   docker-compose stop
 
   ## Options
-    - `always_yes: true` - answer "yes" to all interactive questions
     - `compose_path: path` - path to the compose if not in the standard location
     - `project_name: name` - compose project name
     - `service: name` - name of the service to be stopped, can be specified multiple times to stop
@@ -134,7 +130,6 @@ defmodule DockerCompose do
   and start the services use `up/1`.
 
   ## Options
-    - `always_yes: true` - answer "yes" to all interactive questions
     - `compose_path: path` - path to the compose if not in the standard location
     - `project_name: name` - compose project name
     - `service: name` - name of the service to be started, can be specified multiple times to start
@@ -156,21 +151,10 @@ defmodule DockerCompose do
   end
 
   defp execute(args, opts) do
-    System.cmd(get_executable(), wrapper_opts(opts) ++ ["--no-ansi" | args], [
+    System.cmd("docker", ["compose", "--ansi", "never" | args], [
       {:stderr_to_stdout, true} | cmd_opts(opts)
     ])
   end
-
-  defp get_executable do
-    Path.join(:code.priv_dir(:docker_compose), "docker-compose")
-  end
-
-  defp wrapper_opts([{:always_yes, true} | rest]) do
-    ["--always-yes" | wrapper_opts(rest)]
-  end
-
-  defp wrapper_opts([_ | rest]), do: wrapper_opts(rest)
-  defp wrapper_opts([]), do: []
 
   defp compose_opts([{:compose_path, path} | rest]) do
     ["-f", Path.basename(path) | compose_opts(rest)]

@@ -1,8 +1,8 @@
 # Docker Compose Elixir
 
-Elixir library to work with Docker Compose.
+Elixir library to work with Docker Compose V2.
 
-It wraps around the [docker-compose CLI](https://github.com/docker/compose-cli) and provides subset
+It wraps around the [docker compose](https://docs.docker.com/compose) and provides subset
 of the capabilities directly from Elixir.
 
 ## Installation
@@ -10,14 +10,15 @@ of the capabilities directly from Elixir.
 It's available in Hex, just add the snippet below to your dependencies.
 
 ```elixir
-{:docker_compose, "~> 0.3"}
+{:docker_compose, "~> 1.0"}
 ```
 
 Documentation can be found at [HexDocs](https://hexdocs.pm/docker_compose).
 
-Make sure you have the `docker-compose` executable available and working, this library is only a
+Make sure you have the `docker compose` command
+[available and working](https://docs.docker.com/compose/install/linux/), this library is only a
 wrapper around it. If running the app inside docker make sure the container has access to the docker
-socket and that the `docker-compose` inside the docker container works fine.
+socket and that the `docker compose` inside the docker container works fine.
 
 ## Using the library
 
@@ -35,7 +36,7 @@ DockerCompose.up(compose_path: "docker/my-compose.yml", service: "db", service: 
 ```
 
 For the full list of commands and options check out the official documentation at
-[HexDocs](https://hexdocs.pm/docker_compose_cli).
+[HexDocs](https://hexdocs.pm/docker_compose).
 
 ## Collaboration
 
