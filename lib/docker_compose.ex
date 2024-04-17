@@ -22,6 +22,7 @@ defmodule DockerCompose do
     - `service: name` - name of the service that should be started, can be specified multiple times
       to start multiple services. If it's not specified at all then all services are started.
     - `compatibility: true` - if true, runs compose in backward compatibility mode
+    - `quiet_pull: true` - if true, pull without printing progress information
   """
   @spec up(Keyword.t()) :: {:ok, output} | {:error, exit_code, output}
   def up(opts) do
@@ -177,7 +178,7 @@ defmodule DockerCompose do
 
   defp up_opts(opts) do
     opts
-    |> Keyword.take([:force_recreate, :remove_orphans])
+    |> Keyword.take([:force_recreate, :remove_orphans, :quiet_pull])
     |> command_opts()
   end
 
@@ -192,6 +193,9 @@ defmodule DockerCompose do
 
   defp command_opts([{:remove_orphans, true} | rest]),
     do: ["--remove-orphans" | command_opts(rest)]
+
+  defp command_opts([{:quiet_pull, true} | rest]),
+    do: ["--quiet-pull" | command_opts(rest)]
 
   defp command_opts([_ | rest]), do: command_opts(rest)
   defp command_opts([]), do: []
